@@ -14,18 +14,27 @@ const Header = styled.h1`
 function App() {
   const [num, setNum] = useState([]);
   const [random, setRandom] = useState(0);
+  const [count,setCount] = useState(0);
 
   const generateNumber = () => {
-    const randomNumber = Math.floor(Math.random()*10)+1;
+    if(count>=5) {
+      return;
+    }
+    let randomNumber;
+    do {
+      randomNumber = Math.floor(Math.random() * 45) + 1;
+    } while (num.includes(randomNumber));
     setRandom(randomNumber);
     setNum((previous) => {
       return [...previous, randomNumber]
     });
+    setCount(previous => previous+1);
   }
   
   const resetNum = () => {
     setNum([]);
     setRandom(0);
+    setCount(0);
   }
 
   return (
